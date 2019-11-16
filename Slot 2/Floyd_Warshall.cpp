@@ -1,38 +1,54 @@
-//Question Link-> https://codeforces.com/problemset/problem/25/C
-#include<bits/stdc++.h>
-using namespace std;
-int adj[301][301];
-int main(){
-    //memset(adj, 0, adj);
-    int n;
-    cin>>n;
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            cin>>adj[i][j];
-        }
-    }
-    int q;
-    cin>>q;
-    while(q--){
-        int a, b, c;
-        cin>>a>>b>>c;
-        long long ans = 0;
-        if(adj[a-1][b-1] > c){
-            adj[a-1][b-1] = min(c, adj[a-1][b-1]);
-            adj[b-1][a-1] = min(c, adj[b-1][a-1]);
-                for(int j=0; j<n; j++){
-                    for(int k=0; k<n; k++){
-                        adj[j][k] = min(adj[j][k], adj[j][b-1]+c+adj[a-1][k]);
-                        adj[j][k] = min(adj[j][k], adj[j][a-1]+c+adj[b-1][k]);
-                    }
-                }
-        }
+#include <bits/stdc++.h> 
+using namespace std; 
 
-        for(int i=0; i<n; i++){
-            for(int j=i; j<n; j++){
-                ans+=adj[i][j];
-            }
-        }
-        cout<<ans<<" ";
-    }
-}
+#define V 4  
+#define INF 99999   
+void printSolution(int dist[][V]);  
+
+void floydWarshall (int graph[][V])  
+{  
+    int dist[V][V], i, j, k;  
+    for (i = 0; i < V; i++)  
+        for (j = 0; j < V; j++)  
+            dist[i][j] = graph[i][j];  
+    for (k = 0; k < V; k++)  
+    {  
+        for (i = 0; i < V; i++)  
+        {  
+            for (j = 0; j < V; j++)  
+            {  
+                if (dist[i][k] + dist[k][j] < dist[i][j])  
+                    dist[i][j] = dist[i][k] + dist[k][j];  
+            }  
+        }  
+    }   
+    printSolution(dist);  
+}  
+
+void printSolution(int dist[][V])  
+{  
+    cout<<"The following matrix shows the shortest distances"
+            " between every pair of vertices \n";  
+    for (int i = 0; i < V; i++)  
+    {  
+        for (int j = 0; j < V; j++)  
+        {  
+            if (dist[i][j] == INF)  
+                cout<<"INF"<<"     ";  
+            else
+                cout<<dist[i][j]<<"     ";  
+        }  
+        cout<<endl;  
+    }  
+}  
+ 
+int main()  
+{  
+    int graph[V][V] = { {0, 5, INF, 10},  
+                        {INF, 0, 3, INF},  
+                        {INF, INF, 0, 1},  
+                        {INF, INF, INF, 0}  
+                    };  
+    floydWarshall(graph);  
+    return 0;  
+}  

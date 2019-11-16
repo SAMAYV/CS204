@@ -79,25 +79,22 @@ int isCycle( struct Graph* graph )
   
 int main() 
 { 
-    int V = 3, E = 3; 
+    int V,E;
+    cout<<"Enter number of vertices and edges of graph respectively"<<endl;
+    cin>>V>>E;
     struct Graph* graph = createGraph(V, E); 
-  
-    // add edge 0-1 
-    graph->edge[0].src = 0; 
-    graph->edge[0].dest = 1; 
-  
-    // add edge 1-2 
-    graph->edge[1].src = 1; 
-    graph->edge[1].dest = 2; 
-  
-    // add edge 0-2 
-    graph->edge[2].src = 0; 
-    graph->edge[2].dest = 2; 
-  
+  	for(int i=0;i<E;i++)
+  	{
+  		int x,y;
+  		cout<<"Enter vertices of "<<i<<"th edge"<<endl;
+  		cin>>x>>y;
+  		graph->edge[i].src = x;
+  		graph->edge[i].dest = y;
+  	}
     if (isCycle(graph)) 
-        cout<<"Graph contains cycle"; 
+        cout<<"Graph contains cycle"<<endl; 
     else
-        cout<<"Graph doesn't contain cycle"; 
+        cout<<"Graph doesn't contain cycle"<<endl; 
   
     return 0; 
 } 

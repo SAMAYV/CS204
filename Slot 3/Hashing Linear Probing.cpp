@@ -42,8 +42,7 @@ class HashMap
     { 
         HashNode<K,V> *temp = new HashNode<K,V>(key, value);  
         int hashIndex = hashCode(key); 
-        while(arr[hashIndex] != NULL && arr[hashIndex]->key != key 
-               && arr[hashIndex]->key != -1) 
+        while(arr[hashIndex] != NULL && arr[hashIndex]->key == key && arr[hashIndex]->key != -1) 
         { 
             hashIndex++; 
             hashIndex %= capacity; 
@@ -105,7 +104,7 @@ class HashMap
         for(int i=0 ; i<capacity ; i++) 
         { 
             if(arr[i] != NULL && arr[i]->key != -1) 
-                cout << "key = " << arr[i]->key  
+                cout << "index = " << i 
                      <<"  value = "<< arr[i]->value << endl; 
         } 
     } 
@@ -115,13 +114,12 @@ int main()
 { 
     HashMap<int, int> *h = new HashMap<int, int>; 
     h->insertNode(1,1); 
-    h->insertNode(2,2); 
-    h->insertNode(2,3); 
+    h->insertNode(2,2);
+    h->deleteNode(2); 
+    h->insertNode(2,9);
+    h->insertNode(2,6);
     h->display(); 
-    cout << h->sizeofMap() <<endl; 
-    cout << h->deleteNode(2) << endl; 
-    cout << h->sizeofMap() <<endl; 
-    cout << h->isEmpty() << endl; 
-    cout << h->get(2);   
+   cout << h->sizeofMap() <<endl; 
+   cout << h->isEmpty() << endl;    
     return 0; 
 } 

@@ -188,15 +188,29 @@ Node* deleteNode(Node* root, int key)
 }    
 int main()  
 {  
-    Node *root = NULL;  
-    root = insert(root, 10);  
-    root = insert(root, 20);  
-    root = insert(root, 30);  
-    root = insert(root, 40);  
-    root = insert(root, 50);  
-    root = insert(root, 25);  
-    cout << "Inorder traversal of the "
-            "constructed AVL tree is \n";  
-    inOrder(root);  
+    Node *root = NULL;
+    char u;
+    int ch;
+      do
+      {
+        cout<<"Enter your preference: 1 for insert, 2 for delete, 3 for inoder traversal"<<endl;
+        cin>>ch;
+        int x,y;
+        switch (ch)
+        {
+            case 1 : cin>>x; 
+                    root = insert(root,x);
+                    break;
+            case 2 : cin>>y;
+                    root = deleteNode(root,y);
+                    break;
+            case 3 : inOrder(root);
+                    break;
+            default : cout<<"Wrong case entered"<<endl;
+                    break;
+        }  
+        cout<<"Do you want to continue?(Y/y for Yes and N/n for No"<<endl;
+        cin>>u;
+      } while(u=='Y' || u=='y');  
     return 0;  
 }  
