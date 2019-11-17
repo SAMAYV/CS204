@@ -113,13 +113,33 @@ class HashMap
 int main() 
 { 
     HashMap<int, int> *h = new HashMap<int, int>; 
-    h->insertNode(1,1); 
-    h->insertNode(2,2);
-    h->deleteNode(2); 
-    h->insertNode(2,9);
-    h->insertNode(2,6);
-    h->display(); 
-   cout << h->sizeofMap() <<endl; 
-   cout << h->isEmpty() << endl;    
-    return 0; 
+    char u;
+    int ch;
+     do
+     {
+        cout<<"Enter your preference: 1 for insertNode, 2 for deleteNode, 3 for display, 4 for sizeofMap, 5 for isEmpty"<<endl;
+        cin>>ch;
+        int x,y;
+        switch (ch)
+        {
+            case 1 : cin>>k>>v; 
+                    h->insertNode(k,v);
+                    break;
+            case 2 : cin>>k;
+                    h->deleteNode(k);
+                    break;
+            case 3 : cout<<h->display()<<endl;
+                    break;
+            case 4 : cout<<h->sizeofMap()<<endl;
+            		break;
+            case 5 : cout<<h->isEmpty()<<endl;
+            		break;
+            default : cout<<"Wrong case entered"<<endl;
+                    break;
+        }  
+        cout<<"Do you want to continue?(Y/y for Yes and N/n for No"<<endl;
+        cin>>u;
+     } while(u=='Y' || u=='y');  
+
+  	return 0; 
 } 

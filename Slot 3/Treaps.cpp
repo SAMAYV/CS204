@@ -112,41 +112,33 @@ int main()
 { 
     srand(time(NULL)); 
     struct TreapNode *root = NULL; 
-    root = insert(root, 50); 
-    root = insert(root, 30); 
-    root = insert(root, 20); 
-    root = insert(root, 40); 
-    root = insert(root, 70); 
-    root = insert(root, 60); 
-    root = insert(root, 80); 
-    cout << "Inorder traversal of the before modified tree \n"<<endl;
-    inorder(root);
-    root = deleteNode(root,30);
-    cout << "Inorder traversal of the modified tree \n"; 
-    inorder(root);
-    
-  
-   /* cout << "Inorder traversal of the given tree \n"; 
-    inorder(root); 
-  
-    cout << "\nDelete 20\n"; 
-    root = deleteNode(root, 20); 
-    cout << "Inorder traversal of the modified tree \n"; 
-    inorder(root); 
-  
-   // cout << "\nDelete 30\n"; 
-   // root = deleteNode(root, 30); 
-  //  cout << "Inorder traversal of the modified tree \n"; 
-   // inorder(root); 
-  
-    cout << "\nDelete 50\n"; 
-    root = deleteNode(root, 50); 
-    cout << "Inorder traversal of the modified tree \n"; 
-    inorder(root); 
-  
-    TreapNode *res = search(root, 50); 
-    (res == NULL)? cout << "\n50 Not Found ": 
-                   cout << "\n50 found"; */
+    char u;
+    int ch;
+    do
+    {
+        cout<<"Enter your preference: 1 for insert, 2 for delete, 3 for inorder traversal, 4 for search"<<endl;
+        cin>>ch;
+        int x,y;
+        switch (ch)
+        {
+            case 1 : cin>>x; 
+                    root = insert(root,x);
+                    break;
+            case 2 : cin>>y;
+                    root = deleteNode(root,y);
+                    break;
+            case 3 : inOrder(root);
+                    break;
+            case 4 : cin>>y;
+                     TreapNode *res = search(root, 50); 
+                     (res == NULL)? cout << "\n50 Not Found ": cout << "\n50 found";
+                    break;
+            default : cout<<"Wrong case entered"<<endl;
+                    break;
+        }  
+        cout<<"Do you want to continue?(Y/y for Yes and N/n for No"<<endl;
+        cin>>u;
+    } while(u=='Y' || u=='y');  
   
     return 0; 
 } 

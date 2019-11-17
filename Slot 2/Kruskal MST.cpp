@@ -100,31 +100,21 @@ void KruskalMST(Graph* graph)
 
 int main()  
 {  
-    int V = 4; 
-    int E = 5; 
-    Graph* graph = createGraph(V, E);  
- 
-    graph->edge[0].src = 0;  
-    graph->edge[0].dest = 1;  
-    graph->edge[0].weight = 10;  
- 
-    graph->edge[1].src = 0;  
-    graph->edge[1].dest = 2;  
-    graph->edge[1].weight = 6;  
-
-    graph->edge[2].src = 0;  
-    graph->edge[2].dest = 3;  
-    graph->edge[2].weight = 5;  
-
-    graph->edge[3].src = 1;  
-    graph->edge[3].dest = 3;  
-    graph->edge[3].weight = 15;  
- 
-    graph->edge[4].src = 2;  
-    graph->edge[4].dest = 3;  
-    graph->edge[4].weight = 4;  
-  
+    int V,E;
+    cout<<"Enter number of vertices and edges of graph respectively"<<endl;
+    cin>>V>>E;
+    struct Graph* graph = createGraph(V, E); 
+    for(int i=0;i<E;i++)
+    {
+        int x,y,z;
+        cout<<"Enter vertices of "<<i<<"th edge"<<endl;
+        cin>>x>>y;
+        cout<<"Enter weight of "<<i<<"th edge"<<endl;
+        cin>>z;
+        graph->edge[i].src = x;
+        graph->edge[i].dest = y;
+        graph->edge[i].weight = z;
+    } 
     KruskalMST(graph);  
-  
     return 0;  
 }  

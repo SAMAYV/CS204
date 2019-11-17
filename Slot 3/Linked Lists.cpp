@@ -1,187 +1,139 @@
 #include<bits/stdc++.h>
+
 using namespace std;
 
-struct node
-{
- int x;
- int y;
- struct node* next;
-}*head;
+#define lli long long 
 
-struct node* createnode(int x,int y)
-{
- struct node* temp = (struct node*)malloc(sizeof(struct node));
- temp->x = x;
- temp->y = y;
- temp->next = NULL;
- return temp;
-}
+struct node{
+    lli data;
+    node *next;
+};
 
-void initialize()
-{
- head = NULL;
-}
-
-void AddFirst(int x,int y)
-{
- if(head == NULL)
-   head = createnode(x,y);
- else 
- {
-  struct node* temp = createnode(x,y);
-  temp->next = head;
-  head = temp;
- }
-}
-
-void DelFirst()
-{
- if(head ==NULL)
-  cout<<"-1";   //when node is not deleted due to underflow -1 is returned
- else 
- {
-  struct node* temp = head->next;
-  struct node* temp1 = head;
-  head = temp;
-  temp1->next = NULL;
-  free(temp1); //when node is deleted successfully 0 is returned
- }
-}
-
-int length()
-{
- struct node* temp = head;
- int count = 0;
- while(temp!=NULL)
- {
-  count++;
-  temp = temp->next;
- }
- return count;
-}
-
-string search(int x,int y)
-{
-    int c = length();
-    struct node* temp = head;
-    int i;
-    for(i=1;i<=c;i++)
+class LL{
+    public:
+    void insertend(lli x)
     {
-        if(temp->x==x && temp->y==y)
+        node *t=(node *)malloc(sizeof(node));
+        if(t==NULL)
         {
-        	return "TRUE";
-        	break;
+            cout<<"Failed"<<endl; return;
         }
-    	temp = temp->next;
+        t->data=x;
+        t->next=NULL;
+        if(this->start==NULL)
+        {
+            this->end=t;
+            this->start=t;
+        }
+        else{
+        this->end->next=t;
+        this->end=t;
+        }
+        cout<<"Added "<<x<<endl;
     }
-    if(i==c+1)
-      return "FALSE";
-}
- 
-void search(float d)
-{
- int c=0;
- int count = 0;
- struct node* temp = head;
- while(temp!=NULL)
- {
-  if((temp->x)*(temp->x) + (temp->y)*(temp->y) <= d*d)
-  { 
-   count++;
-   c=1;
-  }
-  temp = temp->next;
- }
- if(c!=1)
-  cout<<"-1\n";
- else cout<<count<<"\n";
-}
-
-void Del(int x,int y)
-{
- if(head==NULL)
- 	cout<<"-1\n";
- else
- {
- 	 int flag = 0;
-	 struct node* temp = head;
-	 while(temp!=NULL)
-	 {
-	  if(temp->x==x && temp->y==y)
-	  {
-	  	flag=1;
-	  	break;
-	  }
-	  temp=temp->next;
-	 }
-	 if(temp==NULL)
-	  cout<<"-1";   //when node is not deleted due to no available x,y -1 is returned
-	 else
-	 {
-	  temp = head;
-	  if(temp->x==x && temp->y ==y)
-	  {
-	   struct node* temp1 = head->next;
-	   head = temp1;
-	   temp->next = NULL;
-	   free(temp);
-	  }
-	  else
-	  {
-	   struct node* temp2 = head;
-	   struct node* temp1 = NULL;
-	   while(temp2->x!=x && temp2->y!=y)
-	   {
-	    temp1=temp2;
-	    temp2=temp2->next;
-	   }
-	  temp1->next=temp2->next;
-	  temp2->next=NULL;
-	  free(temp2);
-	  }  //when node is deleted successfully 0 is returned
-	 }
-  }
-}
+    void insertfront(lli x)
+    {
+        node *t=(node *)malloc(sizeof(node));
+        if(t==NULL)
+        {
+            cout<<"Failed"<<endl; return;
+        }
+        t->data=x;
+        t->next=NULL;
+        if(this->start==NULL)
+        {
+            this->end=t;
+            this->start=t;
+        }
+        else{
+        t->next=this->start;
+        this->start=t;
+        }
+        cout<<"Added "<<x<<endl;
+    }
+    void search(lli x)
+    {
+        node *t=this->start;
+        while(t!=NULL)
+        {
+            if(t->data==x)
+            {
+                cout<<x<<" is present."<<endl;
+                return;
+            }
+            t=t->next;
+        }    
+        cout<<x<<" is not in the list.";
+        cout<<endl;
+    }
+    void deletekey(lli x)
+    {
+        node *t=this->start,*prev=NULL;
+        while(t!=NULL)
+        {
+            if(t->data==x)
+            {
+                if(prev==NULL)
+                {
+                    this->start=t->next;
+                }
+                else
+                {
+                    prev->next=t->next;
+                }
+                delete t;
+                cout<<"Deleted."<<endl;
+                return;
+            }
+            prev=t;
+            t=t->next;
+        }
+        cout<<"Not found"<<endl;  
+    }
+    void show()
+    {
+        node *t=this->start;
+        while(t!=NULL)
+        {
+            cout<<t->data<<' ';
+            t=t->next;
+        }    
+        cout<<endl;
+    }
+    LL()
+    {
+        this->end=NULL;
+        this->start=NULL;
+    }
+    private:
+    node *start,*end;
+};
 
 int main()
 {
- int x,y;
- int count;
- int ch;
- float d;
- cin>>count;
- initialize();
- while(count--)
- {
-  cin>>ch;
-  switch (ch)
-  {
-  case 1: cin>>x>>y; AddFirst(x,y); break;
-  case 2: DelFirst(); break;
-  case 3: cin>>x>>y; Del(x,y);cout<<"\n"; break;
-  case 4: cin>>d; search(d); break;
-  case 5: cin>>x>>y; cout<<search(x,y)<<"\n"; break;
-  case 6: cout<<length()<<"\n"; break;
-  }
- }
- return 0;
+    LL Q;
+    while(1){
+    cout<<"Enter choice : \n 1. Insert \n 3. Show \n 4. Search \n 5. Delete \n 6. Exit \n";
+    lli x;
+    lli c;
+    cin>>c;
+    switch(c)
+    {
+        case 1: cin>>x;
+                Q.insertfront(x);
+                break;
+        case 3: Q.show();
+                break;
+        case 4: cin>>x;
+                Q.search(x);
+                break;
+        case 5: cin>>x;
+                Q.deletekey(x);
+                break;
+        case 6: return 0;
+        default: cout<<"Wrong choice!!"<<endl;
+
+    }
+    }
+    return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
