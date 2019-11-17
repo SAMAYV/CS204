@@ -1,7 +1,7 @@
 #include <bits/stdc++.h> 
 using namespace std; 
   
-#define V 5  
+int V;  
   
 int minKey(int key[], bool mstSet[])  
 {   
@@ -46,12 +46,22 @@ void primMST(int graph[V][V])
 
 int main()  
 {  
-    int graph[V][V] = { { 0, 2, 0, 6, 0 },  
-                        { 2, 0, 3, 8, 5 },  
-                        { 0, 3, 0, 0, 7 },  
-                        { 6, 8, 0, 0, 9 },  
-                        { 0, 5, 7, 9, 0 } };  
+	int E,w;
+	cout<<"Enter number of vertices and edges"<<endl;
+	cin>>V>>E;
+	int** graph = new graph* [V];
+	for(int i=0;i<V;i++)
+		graph[i] = new int [V];
 
+    for(int i=0;i<V;i++)
+    {
+    	for(int j=0;j<V;j++)
+    	{
+    		cout<<"Enter weight for edge connecting "<<i<<"th vertice and "<<j<<"th vertice"<<endl;
+    		cin>>w;
+    		graph[i][j] = w;
+    	}	
+    }  
     primMST(graph);  
   
     return 0;  
